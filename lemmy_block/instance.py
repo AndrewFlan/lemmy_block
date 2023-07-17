@@ -60,7 +60,7 @@ class Instance:
         except Exception as exception:  # pylint: disable=broad-except
             print(
                 f"Unsuccessful block attempt for user: {self.account.user} for"
-                f" community id: {id}"
+                f" community id: {community_id}"
             )
             print(f"Exception: {exception}")
 

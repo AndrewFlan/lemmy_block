@@ -71,7 +71,7 @@ def get_all_communities_from_instance(instance: str) -> list[BlockCommunity]:
     run: int = True
     page: int = 1
 
-    print("Gathering Communities. This could take a while...")
+    print(f"Gathering Communities from {instance}. This could take a while...")
     while run:
         try:
             print(f"Retrieving {instance} communities from Page {page}")
@@ -122,7 +122,6 @@ def get_block_list(config_file: Path) -> list[BlockCommunity]:
 
     for item in config.sections():
         items = dict(config.items(item))
-        print(f'Getting {items["instance"]}')
         block_list += get_all_communities_from_instance(items["instance"])
 
     return block_list
@@ -152,7 +151,7 @@ def block_communities(
                 )
                 response = instance.block_community(
                     block=community.block,
-                    id=(
+                    community_id=(
                         instance.get_community(f"{community.name}@{community.instance}")
                     ),
                 )
