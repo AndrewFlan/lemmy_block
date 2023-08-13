@@ -13,12 +13,7 @@ class Instance:
 
     def login(self) -> None:
         """Function to log into Lemmy account"""
-        try:
-            self.srv.login(self.account.user, self.account.password)
-
-        except Exception as exception:  # pylint: disable=broad-except
-            print(f"Unsuccessful login attempt for {self.account.user}")
-            print(f"Exception: {exception}")
+        self.srv.login(self.account.user, self.account.password)
 
     def get_community(self, community_name: str) -> int | None:
         """Function to get details about a community
