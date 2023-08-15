@@ -139,16 +139,11 @@ def block_communities(
     total_count: int = len(block_list)
     print(f"Number of communities to block: {total_count}")
     for instance in instances:
-        try:
-            print(f"Login for {instance.account.user}")
-            instance.login()
-            sleep(0.25)
+        print(f"Attempting login for {instance.account.user}")
+        result: bool = instance.login()
+        sleep(0.25)
 
-        except Exception as exception:  # pylint: disable=broad-except
-            print(f"Failed login attempt {instance.account.user}")
-            print(f"Exception: {exception}")
-
-        else:
+        if result is True:
             for index, community in enumerate(block_list):
                 try:
                     print(
