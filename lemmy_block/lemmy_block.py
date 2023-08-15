@@ -139,28 +139,32 @@ def block_communities(
     total_count: int = len(block_list)
     print(f"Number of communities to block: {total_count}")
     for instance in instances:
-        instance.login()
-        print(f"Login for {instance.account.user}")
+        print(f"Attempting login for {instance.account.user}")
+        result: bool = instance.login()
         sleep(0.25)
-        for index, community in enumerate(block_list):
-            try:
-                print(
-                    f"({index + 1}/{total_count}) Blocking"
-                    f" {community.name}@{community.instance} for"
-                    f" {instance.account.user}"
-                )
-                response = instance.block_community(
-                    block=community.block,
-                    community_id=(
-                        instance.get_community(f"{community.name}@{community.instance}")
-                    ),
-                )
-                print(f"Community {community.name} Blocked: {response}")
-                sleep(0.25)
 
-            except Exception as exception:  # pylint: disable=broad-except
-                print("Issue blocking communities")
-                print(f"Exception: {exception}")
+        if result is True:
+            for index, community in enumerate(block_list):
+                try:
+                    print(
+                        f"({index + 1}/{total_count}) Blocking"
+                        f" {community.name}@{community.instance} for"
+                        f" {instance.account.user}"
+                    )
+                    response = instance.block_community(
+                        block=community.block,
+                        community_id=(
+                            instance.get_community(
+                                f"{community.name}@{community.instance}"
+                            )
+                        ),
+                    )
+                    print(f"Community {community.name} Blocked: {response}")
+                    sleep(0.25)
+
+                except Exception as exception:  # pylint: disable=broad-except
+                    print("Issue blocking communities")
+                    print(f"Exception: {exception}")
 
 
 def main():
