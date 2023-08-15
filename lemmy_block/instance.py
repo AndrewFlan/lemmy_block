@@ -21,9 +21,8 @@ class Instance:
             print(f"Exception: {exception}")
             return False
 
-        else:
-            print(f"Login successful for {self.account.user}")
-            return True
+        print(f"Login successful for {self.account.user}")
+        return True
 
     def get_community(self, community_name: str) -> int | None:
         """Function to get details about a community
